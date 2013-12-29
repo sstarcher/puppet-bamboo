@@ -14,7 +14,7 @@
 #
 # [Remember: No empty lines between comments and class definition]
 class bamboo (
-  $version = '4.4.0',
+  $version = '5.3',
   $extension = 'tar.gz',
   $installdir = '/usr/local',
   $home = '/var/local/bamboo',
@@ -66,13 +66,13 @@ class bamboo (
     content => "RUN_AS_USER=${user}
 BAMBOO_PID=${home}/bamboo.pid
 BAMBOO_LOG_FILE=${home}/logs/bamboo.log",
-  }# ~>
-  #service { 'bamboo':
-  #  ensure     => running,
-  #  enable     => false, # service bamboo does not support chkconfig
-  #  hasrestart => true,
-  #  hasstatus  => false,
-  #}
-  ##Bamboo currently does not know when it's running so it would keep starting itself
+  } ~>
+  service { 'bamboo':
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    hasstatus  => true,
+  }
+  
 
 }
