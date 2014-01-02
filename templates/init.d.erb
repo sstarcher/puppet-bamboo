@@ -20,8 +20,6 @@ APP=bamboo
 USER=<%= @user %>
 # Location of application's bin directory
 BASE=<%= @dir %>
-# Location of Java JDK
-export JAVA_HOME=/opt/jdk
 tomcat_pid() {
    echo `ps aux | grep org.apache.catalina.startup.Bootstrap | grep -v grep | awk '{ print $2 }'`
 }
@@ -30,7 +28,7 @@ case "$1" in
   # Start command
   start)
     echo "Starting $APP"
-    /bin/su - $USER -c "export JAVA_HOME=/usr/java/latest/ && cd $BASE/logs && $BASE/bin/startup.sh &> /dev/null"
+    /bin/su - $USER -c "cd $BASE/logs && $BASE/bin/startup.sh &> /dev/null"
     ;;
   # Stop command
   stop)
@@ -58,3 +56,6 @@ case "$1" in
     echo "Usage: /etc/init.d/$APP {start|restart|stop|status}"
     exit 1
     ;;
+esac
+ 
+exit 0
