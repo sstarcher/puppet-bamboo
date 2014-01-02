@@ -28,15 +28,6 @@ class bamboo (
     group  => $user,
   }
 
-  if !defined(User[$user]) {
-    user { $user:
-      ensure     => present,
-      home       => $home,
-      managehome => false,
-      system     => true,
-    }
-  }
-
   wget::fetch { 'bamboo':
     source      => "http://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-${version}.${extension}",
     destination => "${srcdir}/atlassian-bamboo-${version}.tar.gz",
